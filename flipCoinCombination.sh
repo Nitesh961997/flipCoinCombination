@@ -84,21 +84,35 @@ for (( i=1; i<=100; i++))
 				done
 			done	
 	done
-echo $heads
-echo $tails
-echo $toss
-echo $HH
-echo $TT
-echo $HT
-echo $TH
-echo $HHH
-echo $TTT
-echo $HHT
-echo $HTT
-echo $HTH
-echo $TTH
-echo $THT
-echo $THH
+array[1]=$heads
+array[2]=$tails
+array[3]=$HH
+array[4]=$TT
+array[5]=$HT
+array[6]=$TH
+array[7]=$HHH
+array[8]=$TTT
+array[9]=$HHT
+array[10]=$HTT
+array[11]=$HTH
+array[12]=$TTH
+array[13]=$THT
+array[14]=$THH
+for ((i = 1; i<=14; i++))
+do
+
+    for((j = 1; j<=14-i-1; j++))
+    do
+
+        if [ ${array[j]} -lt ${array[$((j+1))]} ]
+        then
+            # swap
+            temp=${array[$j]}
+            array[$j]=${array[$((j+1))]}
+            array[$((j+1))]=$temp
+        fi
+    done
+done 
 echo percentageOfHHH=$(echo "scale=2; $HHH/$toss*100" | bc)
 echo percentageOfHHT=$(echo "scale=2; $HHT/$toss*100" | bc)
 echo percentageOfHTH=$(echo "scale=2; $HTH/$toss*100" | bc)
@@ -113,4 +127,4 @@ echo percentaheOfTT=$(echo "scale=2; $TT/$toss*100" | bc)
 echo percentageOfTH=$(echo "scale=2; $HT/$toss*100" | bc)
 echo percentageOfHeads=$(echo "scale=2; $heads/$toss*100" | bc)
 echo percentageOfTails=$(echo "scale=2; $tails/$toss*100" | bc)
-
+echo ${array[*]}
